@@ -1,0 +1,9 @@
+{% include "base.html" %}
+{% block content %}
+{% load static %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Зберегти</button>
+</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+.taskBox{
+    background: #3D087B;
+    color: #E0E0E0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    text-align: center;
+    
+}
+
+.img{
+    max-width: 25%; 
+}

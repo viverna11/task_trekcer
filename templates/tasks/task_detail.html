@@ -1,4 +1,45 @@
-<h1>{{task.title}}</h1>
-<a href="{% url 'task-list'%}">return to list</a>
-<p>{{ task.description }}</p>
-<p>{{ task.due_date}}</p>
+{% include "base.html" %}
+{% block content %}
+{% load custom_tags %}
+{% load static %}
+
+<h1>{{ task.title }}</h1>
+<small>{{ task.create_at }}</small>
+<p>status: {{ task.status }}, priority: {{ task.priority }}</p>
+<p>{{ task.descr }}</p>
+
+
+
+<div class="com">
+    {% for comment in task.comments.all %}
+        <div class="taskBox">
+        <p>{{ comment.author }}</p>
+        <p>{{ comment.content }}</p>
+        {% if comment.media %}
+            {% if comment.media.url|endswith:".jpg" or comment.media.url|endswith:".png" or comment.media.url|endswith:".jpeg" %}
+                <img src="{{ comment.media.url }}" alt="image" class="img">
+            {% elif  comment.media.url|endswith:".mp4" %}
+                <video width="320" height="240" controls>
+                    <source src="{{ comment.media.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            {% else %}
+                <a href="{{ comment.media.url }}">Завантажити файл</a>
+            {% endif %}
+        {% endif %}
+        <small>{{ comment.created_at }}</small>
+        <a href="{% url 'comment-update' comment.pk %}"><button>edit</button></a>
+        </div>
+    {% endfor %}
+</div>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ comment_form.as_p }} 
+    <button type="submit">відправити</button>
+</form>
+
+
+<a href="{% url 'task-update' task.id %}" >Редагувати</a>
+<a href="{% url 'task-delete' task.id %}">Видалити</a>
+{% endblock %}

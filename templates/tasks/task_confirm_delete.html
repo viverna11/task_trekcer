@@ -1,0 +1,11 @@
+{% include "base.html" %}
+{% block content %}
+{% load static %}
+<p>Ви впевнені, що хочете видалити завдання "{{ object.title }}"?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Так, видалити</button>
+    <a href="{% url 'tasks-list' %}">Ні, повернутися до списку завдань</a>
+</form>
+{% endblock %}

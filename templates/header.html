@@ -1,0 +1,12 @@
+{% load static %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+<div class="">
+        <div class="">
+        <a href="{% url 'tasks-list' %}"><button class="">повернутия на головну сторінку</button></a>
+        </div>
+        {% if request.user.is_authenticated %}
+                <a>empty</a>
+        {% else %}
+                <a>empty</a>
+        {% endif %}
+        </div>

@@ -1,5 +1,25 @@
+{% include "base.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<form method="get">
+    {{ form.status.label_tag }}
+    {{ form.status }}
+    <button type="submit">Filter</button>
+</form>
+<a href="{% url 'task-create'%}" ><button>create new task</button></a>
+ 
+
+
 {% for task in tasks %}
+<div class="taskBox">
     <a href="{% url 'task-detail' task.pk%}"><h1>{{ task.title }}</h1></a>
-    <p>{{ task.status }}</p>
-    <p>{{ task.priority }}</p>
+    <p>status: {{ task.status }}</p>
+    <p>priority: {{ task.priority }}</p>
+</div>
 {% endfor %}
+
+
+
+{% endblock %}
