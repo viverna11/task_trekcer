@@ -3,7 +3,9 @@
 {% load static %}
 <form method="post">
     {% csrf_token %}
+    <div class="container">
     {{ form.as_p }}
-    <button type="submit">Зберегти</button>
+    <p><button type="submit" class="main-page-btn">Зберегти</button></p>
+    </div>
 </form>
 {% endblock %}

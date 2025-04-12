@@ -65,6 +65,18 @@ class TaskDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy("tasks-list")
 
 
+
+
+
+class CommentDeleteView(LoginRequiredMixin, DeleteView):
+    model = Comment
+    def get_success_url(self):
+        return reverse_lazy("task-detail", kwargs={'pk': self.object.task.id})
+
+
+
+
+
 class CommentUpdateView(UpdateView):
     model = Comment
     fields = ['content']

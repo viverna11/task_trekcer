@@ -2,19 +2,31 @@
 {% block content %}
 {% load custom_tags %}
 {% load static %}
+<div class="container " style="max-width: 450px;">
+    <h1>{{ task.title }}</h1>
+    <p>
+    <small>{{ task.create_at }}</small>&nbsp;&nbsp;
+    status: {{ task.status }},&nbsp;&nbsp;
+    priority: {{ task.priority }}&nbsp;&nbsp;
+    </p>
+    {{ task.descr|linebreaks }}
+    <p>
+        <a href="{% url 'task-update' task.id %}" class="main-page-btn">Редагувати</a>
+        <a href="{% url 'task-delete' task.id %}" class="main-page-btn">Видалити</a>
+    </p>
+</div>
 
-<h1>{{ task.title }}</h1>
-<small>{{ task.create_at }}</small>
-<p>status: {{ task.status }}, priority: {{ task.priority }}</p>
-<p>{{ task.descr }}</p>
 
 
-
-<div class="com">
+<div class="container-list">
     {% for comment in task.comments.all %}
         <div class="taskBox">
         <p>{{ comment.author }}</p>
-        <p>{{ comment.content }}</p>
+        <p>{{ comment.content }}</p>   
+        <!-- цей кусок коду виводить або фото або відео -->
+        {% if comment.media %}
+            <p>media:</p>
+        {% endif %}
         {% if comment.media %}
             {% if comment.media.url|endswith:".jpg" or comment.media.url|endswith:".png" or comment.media.url|endswith:".jpeg" %}
                 <img src="{{ comment.media.url }}" alt="image" class="img">
@@ -27,19 +39,21 @@
                 <a href="{{ comment.media.url }}">Завантажити файл</a>
             {% endif %}
         {% endif %}
+        <!-- тут він закінчується -->
+        <p>
         <small>{{ comment.created_at }}</small>
         <a href="{% url 'comment-update' comment.pk %}"><button>edit</button></a>
+        <a href="{% url 'comment-delete' comment.pk %}"><button>delete</button></a>
+        </p>
         </div>
     {% endfor %}
 </div>
-
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ comment_form.as_p }} 
-    <button type="submit">відправити</button>
-</form>
-
-
-<a href="{% url 'task-update' task.id %}" >Редагувати</a>
-<a href="{% url 'task-delete' task.id %}">Видалити</a>
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>коментар</p>
+        {{ comment_form.as_p }} 
+        <button type="submit" class="main-page-btn">відправити</button>
+    </form>
+</div>
 {% endblock %}

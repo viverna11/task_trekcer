@@ -1,12 +1,7 @@
 {% load static %}
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
-<div class="">
-        <div class="">
-        <a href="{% url 'tasks-list' %}"><button class="">повернутия на головну сторінку</button></a>
-        </div>
-        {% if request.user.is_authenticated %}
-                <a>empty</a>
-        {% else %}
-                <a>empty</a>
-        {% endif %}
-        </div>
+<div class="header">
+        <a href="{% url 'task-create' %}" ><button class="main-page-btn blue"><h3>create new task</h3></button></a>
+        <h2 class="container" style="width: 280px; margin-top: 0px; margin-bottom: 0px;">Task-Manager</h2>
+        <a href="{% url 'tasks-list' %}" class="right"><button class="main-page-btn blue"><h5>повернутия на головну сторінку</h5></button></a>
+</div>
